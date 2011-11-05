@@ -35,4 +35,11 @@
         android:onClick="onOperationClicked"
         />
 
+    <Button
+        style="@style/digit_button"
+        android:id="@+id/enter"
+        android:text="enter"
+        android:onClick="onOperationClicked"
+        />
+
 </LinearLayout>

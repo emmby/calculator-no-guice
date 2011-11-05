@@ -6,7 +6,6 @@ import roboguice.util.Ln;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
@@ -21,6 +20,8 @@ public class CalculatorActivity extends RoboActivity {
 
     @Inject RpnStack stack;
 
+    String digitAccumulator = "";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +31,19 @@ public class CalculatorActivity extends RoboActivity {
 
 
     public void onDigitClicked( View digit ) {
-        stack.push( Integer.valueOf( ((TextView)digit).getText().toString() ) );
+        digitAccumulator += (Integer.valueOf(((TextView) digit).getText().toString()));
     }
     
     public void onOperationClicked( View operation ) {
-        switch( ((Button)operation).getText().charAt(0) ) {
-            case '+':
+
+        // Any operator will automatically push the current digits onto the stack as if the user hit 'enter'
+        if( digitAccumulator.length()>0 ) {
+            stack.push(Integer.valueOf(digitAccumulator));
+            digitAccumulator="";
+        }
+                
+        switch( operation.getId() ) {
+            case R.id.plus:
                 if( stack.size()<2 ) break;
                 stack.push(stack.pop() + stack.pop());
                 break;
