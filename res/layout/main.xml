@@ -14,12 +14,14 @@
             style="@style/digit_button"
             android:id="@+id/one"
             android:text="1"
+            android:onClick="onDigitClicked"
             />
 
         <Button
             style="@style/digit_button"
             android:id="@+id/two"
             android:text="2"
+            android:onClick="onDigitClicked"
             android:layout_toRightOf="@id/one"
             />
 
