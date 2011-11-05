@@ -29,17 +29,19 @@ public class CalculatorActivity extends RoboActivity {
 
         button1.setOnClickListener( new NumberButtonListener(1) );
         button2.setOnClickListener( new NumberButtonListener(2) );
-        buttonPlus.setOnClickListener( new OnClickListener() {
-            public void onClick(View view) {
-                if( stack.size()<2 )
-                    return;
-                
-                stack.push( stack.pop() + stack.pop() );
-            }
-        } );
     }
 
 
+    
+    public void onOperationClicked( View operation ) {
+        switch( ((Button)operation).getText().charAt(0) ) {
+            case '+':
+                if( stack.size()<2 ) break;
+                stack.push( stack.pop() + stack.pop() );
+                break;
+
+        }
+    }
 
 
     class NumberButtonListener implements OnClickListener {

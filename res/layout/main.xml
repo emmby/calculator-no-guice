@@ -30,6 +30,7 @@
         style="@style/digit_button"
         android:id="@+id/plus"
         android:text="+"
+        android:onClick="onOperationClicked"
         />
 
 </LinearLayout>
