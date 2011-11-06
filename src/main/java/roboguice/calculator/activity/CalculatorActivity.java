@@ -34,7 +34,7 @@ public class CalculatorActivity extends RoboActivity {
 
     public void onDigitClicked( View digit ) {
         digitAccumulator += (Integer.valueOf(((TextView) digit).getText().toString()));
-        updateTape();
+        updateTapeDisplay();
     }
     
     public void onOperationClicked( View operation ) {
@@ -53,10 +53,10 @@ public class CalculatorActivity extends RoboActivity {
 
         }
 
-        updateTape();
+        updateTapeDisplay();
     }
 
-    protected void updateTape() {
+    protected void updateTapeDisplay() {
         Stack<Integer> lines = new Stack<Integer>();
 
         if( digitAccumulator.length()>0 )
