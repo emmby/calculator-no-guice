@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.google.inject.Inject;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Stack;
 
 public class CalculatorActivity extends RoboActivity {
@@ -42,7 +44,7 @@ public class CalculatorActivity extends RoboActivity {
 
 
     public void onDigitClicked( View digit ) {
-        digitAccumulator += (Integer.valueOf(((TextView) digit).getText().toString()));
+        digitAccumulator += ((TextView) digit).getText();
         updateDisplay();
     }
     
@@ -50,26 +52,34 @@ public class CalculatorActivity extends RoboActivity {
 
         // Any operator will automatically push the current digits onto the stack as if the user hit 'enter'
         if( digitAccumulator.length()>0 ) {
-            stack.push(Integer.valueOf(digitAccumulator));
+            stack.push(new BigDecimal(digitAccumulator));
             digitAccumulator="";
         }
                 
+        BigDecimal tmp;
         switch( operation.getId() ) {
             case R.id.plus:
                 if( stack.size()<2 ) break;
-                stack.push(stack.pop() + stack.pop());
+                stack.push(stack.pop().add(stack.pop()));
                 break;
 
             case R.id.minus:
                 if( stack.size()<2 ) break;
-                stack.push(-1 * (stack.pop() - stack.pop()));
+                tmp = stack.pop();
+                stack.push( stack.pop().subtract(tmp) );
                 break;
 
             case R.id.multiply:
                 if( stack.size()<2 ) break;
-                stack.push(stack.pop() * stack.pop());
+                stack.push(stack.pop().multiply( stack.pop()));
                 break;
 
+            case R.id.divide:
+                if( stack.size()<2 ) break;
+                tmp = stack.pop();
+                stack.push(stack.pop().divide(tmp, MathContext.DECIMAL128 ));
+                break;
+            
             case R.id.delete:
                 if( stack.size()>=1 )
                     stack.pop();
@@ -81,10 +91,10 @@ public class CalculatorActivity extends RoboActivity {
     }
 
     protected void updateDisplay() {
-        Stack<Integer> lines = new Stack<Integer>();
+        Stack<BigDecimal> lines = new Stack<BigDecimal>();
 
         if( digitAccumulator.length()>0 )
-            lines.push(Integer.valueOf(digitAccumulator));
+            lines.push(new BigDecimal(digitAccumulator));
 
         for( int i=0; lines.size()<=3 && i<stack.size(); ++i)
             lines.push(stack.get(stack.size()-i-1));
@@ -101,7 +111,7 @@ public class CalculatorActivity extends RoboActivity {
 }
 
 
-class RpnStack extends Stack<Integer> {
+class RpnStack extends Stack<BigDecimal> {
     @Inject SharedPreferences prefs;
 
     /**
@@ -114,7 +124,7 @@ class RpnStack extends Stack<Integer> {
         edit.clear();
         
         for( int i=0; i<size(); ++i )
-            edit.putInt(String.valueOf(i), get(i));
+            edit.putString(String.valueOf(i), get(i).toString());
 
         edit.commit();
     }
@@ -125,6 +135,6 @@ class RpnStack extends Stack<Integer> {
     protected void onResume( @Observes OnResumeEvent ignored ) {
         Ln.d("RpnStack.onResume");
         for( int i=0; prefs.contains(String.valueOf(i)); ++i)
-            insertElementAt(prefs.getInt(String.valueOf(i),0), i);
+            insertElementAt( new BigDecimal(prefs.getString(String.valueOf(i),null)), i);
     }
 }

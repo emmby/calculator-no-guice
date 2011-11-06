@@ -49,14 +49,14 @@
             android:layout_toRightOf="@id/three"
             />
 
-        <!--Button
+        <Button
             style="@style/digit_button"
             android:id="@+id/divide"
             android:text="/"
             android:onClick="onOperationClicked"
             android:layout_alignTop="@id/plus"
             android:layout_toRightOf="@id/plus"
-            /-->
+            />
 
 
 
@@ -155,7 +155,24 @@
 
 
 
+        
+        
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/zero"
+            android:text="0"
+            android:onClick="onDigitClicked"
+            android:layout_below="@id/seven"
+            />
 
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/dot"
+            android:text="."
+            android:onClick="onDigitClicked"
+            android:layout_alignTop="@id/zero"
+            android:layout_toRightOf="@id/zero"
+            />
 
 
     </RelativeLayout>
