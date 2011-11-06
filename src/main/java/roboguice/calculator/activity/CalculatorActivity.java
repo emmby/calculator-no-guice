@@ -6,6 +6,7 @@ import roboguice.inject.InjectView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
@@ -14,13 +15,10 @@ import java.util.Stack;
 
 public class CalculatorActivity extends RoboActivity {
 
-    @InjectView(R.id.tape) TextView tape;
+    @InjectView(R.id.tape) TextView tapeView;
+    @InjectView(R.id.enter) Button enterButton;
 
-    //@InjectView(R.id.one) Button button1;
-    //@InjectView(R.id.two) Button button2;
-    //@InjectView(R.id.plus) Button buttonPlus;
-
-    @Inject RpnStack stack;
+    @Inject Stack<Integer> stack;
 
     String digitAccumulator = "";
 
@@ -28,13 +26,13 @@ public class CalculatorActivity extends RoboActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        updateDisplay();
     }
 
 
     public void onDigitClicked( View digit ) {
         digitAccumulator += (Integer.valueOf(((TextView) digit).getText().toString()));
-        updateTapeDisplay();
+        updateDisplay();
     }
     
     public void onOperationClicked( View operation ) {
@@ -53,10 +51,10 @@ public class CalculatorActivity extends RoboActivity {
 
         }
 
-        updateTapeDisplay();
+        updateDisplay();
     }
 
-    protected void updateTapeDisplay() {
+    protected void updateDisplay() {
         Stack<Integer> lines = new Stack<Integer>();
 
         if( digitAccumulator.length()>0 )
@@ -69,18 +67,8 @@ public class CalculatorActivity extends RoboActivity {
         for( int i=0; i<3 && i<lines.size(); ++i )
             text = lines.get(i) + "\n" + text + "\n";
 
-        tape.setText( text.trim() );
-    }
-
-}
-
-
-
-class RpnStack extends Stack<Integer> {
-    
-    @Override
-    public Integer push(Integer object) {
-        return super.push(object);
+        tapeView.setText( text.trim() );
+        enterButton.setEnabled(digitAccumulator.length() > 0);
     }
 
 }
