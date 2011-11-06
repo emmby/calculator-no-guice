@@ -29,7 +29,6 @@ public class CalculatorActivity extends RoboActivity {
 
     @Inject RpnStack stack;
 
-    String digitAccumulator = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,18 +55,15 @@ public class CalculatorActivity extends RoboActivity {
     }
 
     public void onDigitClicked( View digit ) {
-        digitAccumulator += ((TextView) digit).getText();
+        stack.appendToDigitAccumulator( ((TextView) digit).getText() );
         updateDisplay();
     }
     
     public void onOperationClicked( View operation ) {
 
         // Any operator will automatically push the current digits onto the stack as if the user hit 'enter'
-        if( digitAccumulator.length()>0 ) {
-            stack.push(new BigDecimal(digitAccumulator));
-            digitAccumulator="";
-        }
-                
+        stack.pushDigitAccumulatorOnStack();
+
         BigDecimal tmp;
         switch( operation.getId() ) {
             case R.id.plus:
@@ -104,6 +100,7 @@ public class CalculatorActivity extends RoboActivity {
 
     protected void updateDisplay() {
         Stack<String> lines = new Stack<String>();
+        String digitAccumulator = stack.getDigitAccumulator();
 
         if( digitAccumulator.length()>0 )
             lines.push(digitAccumulator);

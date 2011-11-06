@@ -17,6 +17,8 @@ import java.util.Stack;
 public class RpnStack extends Stack<BigDecimal> {
     @Inject SharedPreferences prefs;
 
+    String digitAccumulator = "";
+
     /**
      * Save to prefs automatically on pause
      */
@@ -39,5 +41,25 @@ public class RpnStack extends Stack<BigDecimal> {
         Ln.d("RpnStack.onResume");
         for( int i=0; prefs.contains(String.valueOf(i)); ++i)
             insertElementAt( new BigDecimal(prefs.getString(String.valueOf(i),null)), i);
+    }
+
+    public void appendToDigitAccumulator(CharSequence text) {
+        digitAccumulator += text;
+    }
+
+    public void pushDigitAccumulatorOnStack() {
+        if( digitAccumulator.length()>0 ) {
+            push(new BigDecimal(digitAccumulator));
+            digitAccumulator="";
+        }
+    }
+
+
+    public String getDigitAccumulator() {
+        return digitAccumulator;
+    }
+
+    public void setDigitAccumulator(String digitAccumulator) {
+        this.digitAccumulator = digitAccumulator;
     }
 }
