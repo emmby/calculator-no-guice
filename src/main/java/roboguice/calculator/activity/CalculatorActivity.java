@@ -130,7 +130,7 @@ public class CalculatorActivity extends RoboActivity {
 
 
 
-    private static final HashMap<Integer, Integer> keyboardShortcuts = new HashMap<Integer, Integer>() {{
+    protected HashMap<Integer, Integer> keyboardShortcuts = new HashMap<Integer, Integer>() {{
         put(KeyEvent.KEYCODE_0, R.id.zero);
         put(KeyEvent.KEYCODE_1, R.id.one);
         put(KeyEvent.KEYCODE_2, R.id.two);
