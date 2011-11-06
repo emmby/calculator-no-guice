@@ -20,7 +20,9 @@ import java.util.Stack;
  * can be used to keep track of the digits that a user is typing up until they hit 'enter'
  * to push the accumulated digits onto the stack.
  *
- * Persists itself to shared preferences
+ * Persists itself to shared preferences.
+ *
+ * Is a singleton.
  */
 @Singleton
 public class RpnStack extends Stack<BigDecimal> {
