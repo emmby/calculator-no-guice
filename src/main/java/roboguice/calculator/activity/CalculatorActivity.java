@@ -91,13 +91,13 @@ public class CalculatorActivity extends RoboActivity {
     }
 
     protected void updateDisplay() {
-        Stack<BigDecimal> lines = new Stack<BigDecimal>();
+        Stack<String> lines = new Stack<String>();
 
         if( digitAccumulator.length()>0 )
-            lines.push(new BigDecimal(digitAccumulator));
+            lines.push(digitAccumulator);
 
         for( int i=0; lines.size()<=3 && i<stack.size(); ++i)
-            lines.push(stack.get(stack.size()-i-1));
+            lines.push(stack.get(stack.size()-i-1).toString());
 
         String text = "";
         for( int i=0; i<3 && i<lines.size(); ++i )
