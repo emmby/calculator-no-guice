@@ -147,7 +147,7 @@
         <Button
             style="@style/digit_button"
             android:id="@+id/delete"
-            android:text="delete"
+            android:text="del"
             android:onClick="onOperationClicked"
             android:layout_alignTop="@id/enter"
             android:layout_toRightOf="@id/enter"
