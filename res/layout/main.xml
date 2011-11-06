@@ -5,7 +5,7 @@
               android:layout_height="fill_parent"
         >
 
-    <TextView
+    <roboguice.calculator.view.TickerTapeView
             android:id="@+id/tape"
             android:maxLines="3"
             android:layout_height="50dp"

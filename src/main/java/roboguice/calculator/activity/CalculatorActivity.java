@@ -3,6 +3,7 @@ package roboguice.calculator.activity;
 import roboguice.activity.RoboActivity;
 import roboguice.calculator.R;
 import roboguice.calculator.util.RpnStack;
+import roboguice.calculator.view.TickerTapeView;
 import roboguice.inject.InjectView;
 
 import android.os.Bundle;
@@ -16,10 +17,9 @@ import com.google.inject.Inject;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.HashMap;
-import java.util.Stack;
 
 public class CalculatorActivity extends RoboActivity {
-    @InjectView(R.id.tape)      TextView tapeView;
+    @InjectView(R.id.tape)      TickerTapeView tapeView;
     @InjectView(R.id.enter)     Button enterButton;
     @InjectView(R.id.delete)    Button deleteButton;
     @InjectView(R.id.plus)      Button plusButton;
@@ -37,12 +37,6 @@ public class CalculatorActivity extends RoboActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        updateDisplay();
-    }
-
-    @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if( event.getAction()==KeyEvent.ACTION_UP ) {
             final Integer resourceId = keyboardShortcuts.get(keyCode);
@@ -56,7 +50,7 @@ public class CalculatorActivity extends RoboActivity {
 
     public void onDigitClicked( View digit ) {
         stack.appendToDigitAccumulator( ((TextView) digit).getText() );
-        updateDisplay();
+        refreshDisplay();
     }
     
     public void onOperationClicked( View operation ) {
@@ -95,28 +89,17 @@ public class CalculatorActivity extends RoboActivity {
             
         }
 
-        updateDisplay();
+        refreshDisplay();
     }
 
-    protected void updateDisplay() {
-        Stack<String> lines = new Stack<String>();
-        String digitAccumulator = stack.getDigitAccumulator();
+    protected void refreshDisplay() {
+        tapeView.refresh();
 
-        if( digitAccumulator.length()>0 )
-            lines.push(digitAccumulator);
+        boolean linesHasAtLeastTwoItems = tapeView.getText().toString().split("\n").length >= 2;
+        int digitAccumulatorLength = stack.getDigitAccumulator().length();
 
-        for( int i=0; lines.size()<=3 && i<stack.size(); ++i)
-            lines.push(stack.get(stack.size()-i-1).toString());
-
-        String text = "";
-        for( int i=0; i<3 && i<lines.size(); ++i )
-            text = lines.get(i) + "\n" + text + "\n";
-
-        boolean linesHasAtLeastTwoItems = lines.size()>1;
-
-        tapeView.setText( text.trim() );
-        enterButton.setEnabled(digitAccumulator.length() > 0);
-        deleteButton.setEnabled(stack.size() > 0 || digitAccumulator.length() > 0);
+        enterButton.setEnabled( digitAccumulatorLength > 0);
+        deleteButton.setEnabled(stack.size() > 0 || digitAccumulatorLength > 0);
         plusButton.setEnabled(linesHasAtLeastTwoItems);
         minusButton.setEnabled(linesHasAtLeastTwoItems);
         divideButton.setEnabled(linesHasAtLeastTwoItems);
