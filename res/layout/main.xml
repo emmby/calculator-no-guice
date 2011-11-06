@@ -33,21 +33,106 @@
             android:layout_toRightOf="@id/one"
             />
 
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/three"
+            android:text="3"
+            android:onClick="onDigitClicked"
+            android:layout_toRightOf="@id/two"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/plus"
+            android:text="+"
+            android:onClick="onOperationClicked"
+            android:layout_toRightOf="@id/three"
+            />
+
+
+
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/four"
+            android:text="4"
+            android:onClick="onDigitClicked"
+            android:layout_below="@id/one"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/five"
+            android:text="5"
+            android:onClick="onDigitClicked"
+            android:layout_toRightOf="@id/four"
+            android:layout_alignTop="@id/four"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/six"
+            android:text="6"
+            android:onClick="onDigitClicked"
+            android:layout_toRightOf="@id/five"
+            android:layout_alignTop="@id/five"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/minus"
+            android:text="-"
+            android:onClick="onOperationClicked"
+            android:layout_alignTop="@id/six"
+            android:layout_toRightOf="@id/six"
+            />
+
+
+
+
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/seven"
+            android:text="7"
+            android:onClick="onDigitClicked"
+            android:layout_below="@id/four"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/eight"
+            android:text="8"
+            android:onClick="onDigitClicked"
+            android:layout_toRightOf="@id/seven"
+            android:layout_alignTop="@id/seven"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/nine"
+            android:text="9"
+            android:onClick="onDigitClicked"
+            android:layout_toRightOf="@id/eight"
+            android:layout_alignTop="@id/eight"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/enter"
+            android:text="enter"
+            android:onClick="onOperationClicked"
+            android:layout_alignTop="@id/nine"
+            android:layout_toRightOf="@id/nine"
+            />
+
+
+
+
+
     </RelativeLayout>
 
 
-    <Button
-        style="@style/digit_button"
-        android:id="@+id/plus"
-        android:text="+"
-        android:onClick="onOperationClicked"
-        />
 
-    <Button
-        style="@style/digit_button"
-        android:id="@+id/enter"
-        android:text="enter"
-        android:onClick="onOperationClicked"
-        />
 
 </LinearLayout>

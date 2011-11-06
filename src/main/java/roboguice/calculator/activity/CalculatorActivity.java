@@ -49,6 +49,10 @@ public class CalculatorActivity extends RoboActivity {
                 stack.push(stack.pop() + stack.pop());
                 break;
 
+            case R.id.minus:
+                if( stack.size()<2 ) break;
+                stack.push(-1 * (stack.pop() - stack.pop()));
+                break;
         }
 
         updateDisplay();
