@@ -62,7 +62,7 @@ public class CalculatorActivity extends RoboActivity {
         if( digitAccumulator.length()>0 )
             lines.push(Integer.valueOf(digitAccumulator));
 
-        for( int i=0; i<3 && i<stack.size(); ++i)
+        for( int i=0; lines.size()<=3 && i<stack.size(); ++i)
             lines.push(stack.get(stack.size()-i-1));
 
         String text = "";
