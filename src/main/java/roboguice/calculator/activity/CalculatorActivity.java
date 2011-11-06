@@ -4,9 +4,9 @@ import roboguice.activity.RoboActivity;
 import roboguice.calculator.R;
 import roboguice.calculator.util.RpnStack;
 import roboguice.calculator.view.TickerTapeView;
+import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+@ContentView(R.layout.main)
 public class CalculatorActivity extends RoboActivity {
     @InjectView(R.id.tape)      TickerTapeView tapeView;
     @InjectView(R.id.enter)     Button enterButton;
@@ -28,12 +29,6 @@ public class CalculatorActivity extends RoboActivity {
     @Inject RpnStack stack;
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-    }
-
     public void onDigitClicked( View digit ) {
         stack.appendToDigitAccumulator( ((TextView) digit).getText() );
         refreshDisplay();
@@ -41,7 +36,7 @@ public class CalculatorActivity extends RoboActivity {
     
     public void onOperationClicked( View operation ) {
 
-        // Any operator will automatically push the current digits onto the stack as if the user hit 'enter'
+        // Any operation will automatically push the current digits onto the stack as if the user hit 'enter'
         stack.pushDigitAccumulatorOnStack();
 
         BigDecimal tmp;
