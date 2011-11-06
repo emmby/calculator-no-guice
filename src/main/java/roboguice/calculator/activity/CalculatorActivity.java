@@ -7,7 +7,6 @@ import roboguice.calculator.view.TickerTapeView;
 import roboguice.inject.InjectView;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import com.google.inject.Inject;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.HashMap;
 
 public class CalculatorActivity extends RoboActivity {
     @InjectView(R.id.tape)      TickerTapeView tapeView;
@@ -34,18 +32,6 @@ public class CalculatorActivity extends RoboActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if( event.getAction()==KeyEvent.ACTION_UP ) {
-            final Integer resourceId = keyboardShortcuts.get(keyCode);
-            if( resourceId!=null ) {
-                findViewById(resourceId).performClick();
-                return true;
-            }
-        }
-        return super.onKeyUp(keyCode, event);
     }
 
     public void onDigitClicked( View digit ) {
@@ -110,23 +96,6 @@ public class CalculatorActivity extends RoboActivity {
 
 
 
-    protected HashMap<Integer, Integer> keyboardShortcuts = new HashMap<Integer, Integer>() {{
-        put(KeyEvent.KEYCODE_0, R.id.zero);
-        put(KeyEvent.KEYCODE_1, R.id.one);
-        put(KeyEvent.KEYCODE_2, R.id.two);
-        put(KeyEvent.KEYCODE_3, R.id.three);
-        put(KeyEvent.KEYCODE_4, R.id.four);
-        put(KeyEvent.KEYCODE_5, R.id.five);
-        put(KeyEvent.KEYCODE_6, R.id.six);
-        put(KeyEvent.KEYCODE_7, R.id.seven);
-        put(KeyEvent.KEYCODE_8, R.id.eight);
-        put(KeyEvent.KEYCODE_9, R.id.nine);
-        put(KeyEvent.KEYCODE_PLUS, R.id.plus);
-        put(KeyEvent.KEYCODE_MINUS, R.id.minus);
-        put(KeyEvent.KEYCODE_STAR, R.id.multiply);
-        put(KeyEvent.KEYCODE_SLASH, R.id.divide);
-        put(KeyEvent.KEYCODE_ENTER, R.id.enter);
-    }};
 }
 
 
