@@ -105,6 +105,8 @@ class RpnStack extends Stack<Integer> {
         Ln.d("RpnStack.onPause");
         final SharedPreferences.Editor edit = prefs.edit();
         
+        edit.clear();
+        
         for( int i=0; i<size(); ++i )
             edit.putInt(String.valueOf(i), get(i));
 
