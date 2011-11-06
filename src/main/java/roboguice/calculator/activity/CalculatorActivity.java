@@ -65,7 +65,7 @@ public class CalculatorActivity extends RoboActivity {
             case R.id.divide:
                 if( stack.size()<2 ) break;
                 tmp = stack.pop();
-                stack.push(stack.pop().divide(tmp, MathContext.DECIMAL128 ));
+                stack.push(stack.pop().divide(tmp, MathContext.DECIMAL32 ));
                 break;
             
             case R.id.delete:
