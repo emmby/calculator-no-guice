@@ -31,8 +31,14 @@ public class CalculatorActivity extends RoboActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         updateDisplay();
     }
+
 
 
     public void onDigitClicked( View digit ) {
@@ -81,17 +87,6 @@ public class CalculatorActivity extends RoboActivity {
     }
 
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Ln.d("onPause");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Ln.d("onResume");
-    }
 }
 
 
