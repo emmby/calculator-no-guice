@@ -22,8 +22,13 @@ import java.util.Stack;
 
 public class CalculatorActivity extends RoboActivity {
 
-    @InjectView(R.id.tape) TextView tapeView;
-    @InjectView(R.id.enter) Button enterButton;
+    @InjectView(R.id.tape)      TextView tapeView;
+    @InjectView(R.id.enter)     Button enterButton;
+    @InjectView(R.id.delete)    Button deleteButton;
+    @InjectView(R.id.plus)      Button plusButton;
+    @InjectView(R.id.minus)     Button minusButton;
+    @InjectView(R.id.multiply)  Button multiplyButton;
+    @InjectView(R.id.divide)    Button divideButton;
 
     @Inject RpnStack stack;
 
@@ -103,8 +108,15 @@ public class CalculatorActivity extends RoboActivity {
         for( int i=0; i<3 && i<lines.size(); ++i )
             text = lines.get(i) + "\n" + text + "\n";
 
+        boolean linesHasAtLeastTwoItems = lines.size()>1;
+
         tapeView.setText( text.trim() );
         enterButton.setEnabled(digitAccumulator.length() > 0);
+        deleteButton.setEnabled(stack.size() > 0 || digitAccumulator.length() > 0);
+        plusButton.setEnabled(linesHasAtLeastTwoItems);
+        minusButton.setEnabled(linesHasAtLeastTwoItems);
+        divideButton.setEnabled(linesHasAtLeastTwoItems);
+        multiplyButton.setEnabled(linesHasAtLeastTwoItems);
     }
 
 
