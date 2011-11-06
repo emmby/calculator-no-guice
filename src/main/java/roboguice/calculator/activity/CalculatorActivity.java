@@ -1,15 +1,12 @@
 package roboguice.calculator.activity;
 
 import roboguice.activity.RoboActivity;
-import roboguice.activity.event.OnPauseEvent;
-import roboguice.activity.event.OnResumeEvent;
 import roboguice.calculator.R;
-import roboguice.event.Observes;
+import roboguice.calculator.util.RpnStack;
 import roboguice.inject.InjectView;
-import roboguice.util.Ln;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,10 +15,10 @@ import com.google.inject.Inject;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.HashMap;
 import java.util.Stack;
 
 public class CalculatorActivity extends RoboActivity {
-
     @InjectView(R.id.tape)      TextView tapeView;
     @InjectView(R.id.enter)     Button enterButton;
     @InjectView(R.id.delete)    Button deleteButton;
@@ -46,7 +43,17 @@ public class CalculatorActivity extends RoboActivity {
         updateDisplay();
     }
 
-
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if( event.getAction()==KeyEvent.ACTION_UP ) {
+            final Integer resourceId = keyboardShortcuts.get(keyCode);
+            if( resourceId!=null ) {
+                findViewById(resourceId).performClick();
+                return true;
+            }
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 
     public void onDigitClicked( View digit ) {
         digitAccumulator += ((TextView) digit).getText();
@@ -120,33 +127,26 @@ public class CalculatorActivity extends RoboActivity {
     }
 
 
+
+
+
+    private static final HashMap<Integer, Integer> keyboardShortcuts = new HashMap<Integer, Integer>() {{
+        put(KeyEvent.KEYCODE_0, R.id.zero);
+        put(KeyEvent.KEYCODE_1, R.id.one);
+        put(KeyEvent.KEYCODE_2, R.id.two);
+        put(KeyEvent.KEYCODE_3, R.id.three);
+        put(KeyEvent.KEYCODE_4, R.id.four);
+        put(KeyEvent.KEYCODE_5, R.id.five);
+        put(KeyEvent.KEYCODE_6, R.id.six);
+        put(KeyEvent.KEYCODE_7, R.id.seven);
+        put(KeyEvent.KEYCODE_8, R.id.eight);
+        put(KeyEvent.KEYCODE_9, R.id.nine);
+        put(KeyEvent.KEYCODE_PLUS, R.id.plus);
+        put(KeyEvent.KEYCODE_MINUS, R.id.minus);
+        put(KeyEvent.KEYCODE_STAR, R.id.multiply);
+        put(KeyEvent.KEYCODE_SLASH, R.id.divide);
+        put(KeyEvent.KEYCODE_ENTER, R.id.enter);
+    }};
 }
 
 
-class RpnStack extends Stack<BigDecimal> {
-    @Inject SharedPreferences prefs;
-
-    /**
-     * Save to prefs automatically on pause
-     */
-    protected void onPause( @Observes OnPauseEvent ignored) {
-        Ln.d("RpnStack.onPause");
-        final SharedPreferences.Editor edit = prefs.edit();
-        
-        edit.clear();
-        
-        for( int i=0; i<size(); ++i )
-            edit.putString(String.valueOf(i), get(i).toString());
-
-        edit.commit();
-    }
-
-    /**
-     * Restore from prefs automatically on resume
-     */
-    protected void onResume( @Observes OnResumeEvent ignored ) {
-        Ln.d("RpnStack.onResume");
-        for( int i=0; prefs.contains(String.valueOf(i)); ++i)
-            insertElementAt( new BigDecimal(prefs.getString(String.valueOf(i),null)), i);
-    }
-}
