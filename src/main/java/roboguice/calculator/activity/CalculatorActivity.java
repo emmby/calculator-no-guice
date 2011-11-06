@@ -67,7 +67,7 @@ public class CalculatorActivity extends RoboActivity {
 
         String text = "";
         for( int i=0; i<3 && i<lines.size(); ++i )
-            text += lines.get(i) + "\n";
+            text = lines.get(i) + "\n" + text + "\n";
 
         tape.setText( text.trim() );
     }
