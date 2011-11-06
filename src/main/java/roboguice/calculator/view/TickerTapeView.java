@@ -31,15 +31,18 @@ public class TickerTapeView extends TextView {
         Stack<String> lines = new Stack<String>();
         String digitAccumulator = stack.getDigitAccumulator();
 
+        // Include the current number that the user is typing in the display
         if( digitAccumulator.length()>0 )
             lines.push(digitAccumulator);
 
-        for( int i=0; lines.size()<=3 && i<stack.size(); ++i)
+        // Include up to 3 lines of stack
+        for( int i=0; lines.size()<3 && i<stack.size(); ++i)
             lines.push(stack.get(stack.size()-i-1).toString());
 
+        // Convert to text
         String text = "";
-        for( int i=0; i<3 && i<lines.size(); ++i )
-            text = lines.get(i) + "\n" + text + "\n";
+        for( String line : lines)
+            text = line + "\n" + text + "\n";
 
         setText(text.trim());
     }
