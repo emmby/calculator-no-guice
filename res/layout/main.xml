@@ -49,6 +49,15 @@
             android:layout_toRightOf="@id/three"
             />
 
+        <!--Button
+            style="@style/digit_button"
+            android:id="@+id/divide"
+            android:text="/"
+            android:onClick="onOperationClicked"
+            android:layout_alignTop="@id/plus"
+            android:layout_toRightOf="@id/plus"
+            /-->
+
 
 
 
@@ -85,6 +94,15 @@
             android:onClick="onOperationClicked"
             android:layout_alignTop="@id/six"
             android:layout_toRightOf="@id/six"
+            />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/multiply"
+            android:text="*"
+            android:onClick="onOperationClicked"
+            android:layout_alignTop="@id/minus"
+            android:layout_toRightOf="@id/minus"
             />
 
 
@@ -125,6 +143,16 @@
             android:layout_alignTop="@id/nine"
             android:layout_toRightOf="@id/nine"
             />
+
+        <Button
+            style="@style/digit_button"
+            android:id="@+id/delete"
+            android:text="delete"
+            android:onClick="onOperationClicked"
+            android:layout_alignTop="@id/enter"
+            android:layout_toRightOf="@id/enter"
+            />
+
 
 
 

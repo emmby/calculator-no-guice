@@ -64,6 +64,17 @@ public class CalculatorActivity extends RoboActivity {
                 if( stack.size()<2 ) break;
                 stack.push(-1 * (stack.pop() - stack.pop()));
                 break;
+
+            case R.id.multiply:
+                if( stack.size()<2 ) break;
+                stack.push(stack.pop() * stack.pop());
+                break;
+
+            case R.id.delete:
+                if( stack.size()>=1 )
+                    stack.pop();
+                break;
+            
         }
 
         updateDisplay();
