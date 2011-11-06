@@ -13,6 +13,12 @@ import com.google.inject.Inject;
 
 import java.util.Stack;
 
+/**
+ * A simple TextView that knows how to read an RpnStack
+ * and display it.
+ *
+ * @see {@link #refresh()}
+ */
 public class TickerTapeView extends TextView {
     @Inject RpnStack stack;
 
