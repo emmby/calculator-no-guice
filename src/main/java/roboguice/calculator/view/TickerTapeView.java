@@ -47,7 +47,7 @@ public class TickerTapeView extends TextView {
         setText(text.trim());
     }
 
-    protected void onResume( @Observes OnResumeEvent ignored ) {
+    protected void onResume( @Observes OnResumeEvent e ) {
         refresh();
     }
 
