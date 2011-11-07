@@ -6,7 +6,10 @@ import roboguice.calculator.util.RpnStackFactory;
 import roboguice.calculator.view.TickerTapeView;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ public class CalculatorActivity extends Activity {
     Button divideButton;
 
     RpnStack stack;
+    SharedPreferences prefs;
 
 
     @Override
@@ -39,7 +43,8 @@ public class CalculatorActivity extends Activity {
         multiplyButton = (Button) findViewById(R.id.multiply);
         divideButton = (Button) findViewById(R.id.divide);
 
-        stack = RpnStackFactory.getInstance(this);
+        stack = RpnStackFactory.getInstance();
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         tapeView.setStack(stack);
 
@@ -48,14 +53,24 @@ public class CalculatorActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        stack.onResume();
+        Log.d("tag", "RpnStack.onResume");
+        for( int i=0; prefs.contains(String.valueOf(i)); ++i)
+            stack.insertElementAt(new BigDecimal(prefs.getString(String.valueOf(i), null)), i);
         tapeView.refresh();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stack.onPause();
+        Log.d("tag", "RpnStack.onPause");
+        final SharedPreferences.Editor edit = prefs.edit();
+
+        edit.clear();
+
+        for( int i=0; i< stack.size(); ++i )
+            edit.putString(String.valueOf(i), stack.get(i).toString());
+
+        edit.commit();
     }
 
     public void onDigitClicked( View digit ) {
