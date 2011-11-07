@@ -2,7 +2,6 @@ package roboguice.calculator.activity;
 
 import roboguice.calculator.R;
 import roboguice.calculator.util.RpnStack;
-import roboguice.calculator.util.RpnStackFactory;
 import roboguice.calculator.view.TickerTapeView;
 
 import android.app.Activity;
@@ -42,7 +41,7 @@ public class CalculatorActivity extends Activity {
         multiplyButton = (Button) findViewById(R.id.multiply);
         divideButton = (Button) findViewById(R.id.divide);
 
-        stack = RpnStackFactory.getInstance();
+        stack = new RpnStack();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         tapeView.setStack(stack);
@@ -54,7 +53,7 @@ public class CalculatorActivity extends Activity {
         super.onResume();
         for( int i=0; prefs.contains(String.valueOf(i)); ++i)
             stack.insertElementAt(new BigDecimal(prefs.getString(String.valueOf(i), null)), i);
-        tapeView.refresh();
+        refreshDisplay();
     }
 
     @Override
