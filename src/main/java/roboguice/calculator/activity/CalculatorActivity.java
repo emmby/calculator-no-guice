@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,7 +52,6 @@ public class CalculatorActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("tag", "RpnStack.onResume");
         for( int i=0; prefs.contains(String.valueOf(i)); ++i)
             stack.insertElementAt(new BigDecimal(prefs.getString(String.valueOf(i), null)), i);
         tapeView.refresh();
@@ -62,7 +60,6 @@ public class CalculatorActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("tag", "RpnStack.onPause");
         final SharedPreferences.Editor edit = prefs.edit();
 
         edit.clear();
