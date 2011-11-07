@@ -1,7 +1,6 @@
 package roboguice.calculator.view;
 
 import roboguice.calculator.util.RpnStack;
-import roboguice.calculator.util.RpnStackFactory;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -20,7 +19,10 @@ public class TickerTapeView extends TextView {
 
     public TickerTapeView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        stack = RpnStackFactory.getInstance(context);
+    }
+
+    public void setStack(RpnStack stack) {
+        this.stack = stack;
     }
 
     public void refresh() {

@@ -31,8 +31,6 @@ public class CalculatorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        stack = RpnStackFactory.getInstance(this);
-
         tapeView = (TickerTapeView) findViewById(R.id.tape);
         enterButton = (Button) findViewById(R.id.enter);
         deleteButton = (Button) findViewById(R.id.delete);
@@ -40,6 +38,11 @@ public class CalculatorActivity extends Activity {
         minusButton = (Button) findViewById(R.id.minus);
         multiplyButton = (Button) findViewById(R.id.multiply);
         divideButton = (Button) findViewById(R.id.divide);
+
+        stack = RpnStackFactory.getInstance(this);
+
+        tapeView.setStack(stack);
+
     }
 
     @Override
