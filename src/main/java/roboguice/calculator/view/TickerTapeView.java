@@ -1,9 +1,7 @@
 package roboguice.calculator.view;
 
-import roboguice.activity.event.OnResumeEvent;
 import roboguice.calculator.util.RpnStack;
 import roboguice.calculator.util.RpnStackFactory;
-import roboguice.event.Observes;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -44,9 +42,4 @@ public class TickerTapeView extends TextView {
 
         setText(text.trim());
     }
-
-    protected void onResume( @Observes OnResumeEvent e ) {
-        refresh();
-    }
-
 }

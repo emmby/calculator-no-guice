@@ -1,11 +1,11 @@
 package roboguice.calculator.activity;
 
-import roboguice.activity.RoboActivity;
 import roboguice.calculator.R;
 import roboguice.calculator.util.RpnStack;
 import roboguice.calculator.util.RpnStackFactory;
 import roboguice.calculator.view.TickerTapeView;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class CalculatorActivity extends RoboActivity {
+public class CalculatorActivity extends Activity {
     TickerTapeView tapeView;
     Button enterButton;
     Button deleteButton;
@@ -40,6 +40,19 @@ public class CalculatorActivity extends RoboActivity {
         minusButton = (Button) findViewById(R.id.minus);
         multiplyButton = (Button) findViewById(R.id.multiply);
         divideButton = (Button) findViewById(R.id.divide);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stack.onResume();
+        tapeView.refresh();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stack.onPause();
     }
 
     public void onDigitClicked( View digit ) {
