@@ -1,20 +1,6 @@
 package roboguice.calculator.util;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import roboguice.RoboGuice;
-
-import android.app.Activity;
-
-import com.google.inject.Inject;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
-@Ignore
+/*
 @RunWith(RobolectricTestRunner.class)
 public class RpnStackTest {
 
@@ -34,3 +20,4 @@ public class RpnStackTest {
         assertThat(stack.getDigitAccumulator(), equalTo("foo"));
     }
 }
+*/

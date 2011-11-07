@@ -1,10 +1,9 @@
 package roboguice.calculator.util;
 
-import roboguice.util.Ln;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.math.BigDecimal;
 import java.util.Stack;
@@ -58,7 +57,7 @@ public class RpnStack extends Stack<BigDecimal> {
      * Save to prefs automatically on pause
      */
     public void onPause() {
-        Ln.d("RpnStack.onPause");
+        Log.d("tag", "RpnStack.onPause");
         final SharedPreferences.Editor edit = prefs.edit();
 
         edit.clear();
@@ -73,7 +72,7 @@ public class RpnStack extends Stack<BigDecimal> {
      * Restore from prefs automatically on resume
      */
     public void onResume() {
-        Ln.d("RpnStack.onResume");
+        Log.d("tag", "RpnStack.onResume");
         for( int i=0; prefs.contains(String.valueOf(i)); ++i)
             insertElementAt( new BigDecimal(prefs.getString(String.valueOf(i),null)), i);
     }

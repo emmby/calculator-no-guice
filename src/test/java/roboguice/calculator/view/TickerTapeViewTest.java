@@ -1,24 +1,6 @@
 package roboguice.calculator.view;
 
-import com.xtremelabs.robolectric.Robolectric;
-import com.xtremelabs.robolectric.RobolectricTestRunner;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import roboguice.RoboGuice;
-import roboguice.calculator.util.MockRpnStack;
-import roboguice.calculator.util.RpnStack;
-
-import android.app.Activity;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.util.Modules;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
-@Ignore
+/*
 @RunWith( RobolectricTestRunner.class )
 public class TickerTapeViewTest {
     
@@ -49,3 +31,4 @@ public class TickerTapeViewTest {
         }
     }
 }
+*/
