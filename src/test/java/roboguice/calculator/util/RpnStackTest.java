@@ -2,6 +2,7 @@ package roboguice.calculator.util;
 
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import roboguice.RoboGuice;
@@ -13,9 +14,10 @@ import com.google.inject.Inject;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+@Ignore
 @RunWith(RobolectricTestRunner.class)
 public class RpnStackTest {
-    
+
     Activity context = new Activity();
 
     @Inject RpnStack stack;
