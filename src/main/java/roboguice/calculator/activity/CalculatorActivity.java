@@ -3,31 +3,44 @@ package roboguice.calculator.activity;
 import roboguice.activity.RoboActivity;
 import roboguice.calculator.R;
 import roboguice.calculator.util.RpnStack;
+import roboguice.calculator.util.RpnStackFactory;
 import roboguice.calculator.view.TickerTapeView;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.inject.Inject;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-@ContentView(R.layout.main)
 public class CalculatorActivity extends RoboActivity {
-    @InjectView(R.id.tape)      TickerTapeView tapeView;
-    @InjectView(R.id.enter)     Button enterButton;
-    @InjectView(R.id.delete)    Button deleteButton;
-    @InjectView(R.id.plus)      Button plusButton;
-    @InjectView(R.id.minus)     Button minusButton;
-    @InjectView(R.id.multiply)  Button multiplyButton;
-    @InjectView(R.id.divide)    Button divideButton;
+    TickerTapeView tapeView;
+    Button enterButton;
+    Button deleteButton;
+    Button plusButton;
+    Button minusButton;
+    Button multiplyButton;
+    Button divideButton;
 
-    @Inject RpnStack stack;
+    RpnStack stack;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        stack = RpnStackFactory.getInstance(this);
+
+        tapeView = (TickerTapeView) findViewById(R.id.tape);
+        enterButton = (Button) findViewById(R.id.enter);
+        deleteButton = (Button) findViewById(R.id.delete);
+        plusButton = (Button) findViewById(R.id.plus);
+        minusButton = (Button) findViewById(R.id.minus);
+        multiplyButton = (Button) findViewById(R.id.multiply);
+        divideButton = (Button) findViewById(R.id.divide);
+    }
 
     public void onDigitClicked( View digit ) {
         stack.appendToDigitAccumulator( ((TextView) digit).getText() );

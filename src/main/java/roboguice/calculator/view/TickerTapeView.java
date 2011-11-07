@@ -1,15 +1,13 @@
 package roboguice.calculator.view;
 
-import roboguice.RoboGuice;
 import roboguice.activity.event.OnResumeEvent;
 import roboguice.calculator.util.RpnStack;
+import roboguice.calculator.util.RpnStackFactory;
 import roboguice.event.Observes;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
-import com.google.inject.Inject;
 
 import java.util.Stack;
 
@@ -20,11 +18,11 @@ import java.util.Stack;
  * @see {@link #refresh()}
  */
 public class TickerTapeView extends TextView {
-    @Inject RpnStack stack;
+    RpnStack stack;
 
     public TickerTapeView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        RoboGuice.injectMembers(context,this);
+        stack = RpnStackFactory.getInstance(context);
     }
 
     public void refresh() {

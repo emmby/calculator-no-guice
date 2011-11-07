@@ -5,10 +5,9 @@ import roboguice.activity.event.OnResumeEvent;
 import roboguice.event.Observes;
 import roboguice.util.Ln;
 
+import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import android.preference.PreferenceManager;
 
 import java.math.BigDecimal;
 import java.util.Stack;
@@ -24,14 +23,15 @@ import java.util.Stack;
  *
  * Is a singleton.
  */
-@Singleton
 public class RpnStack extends Stack<BigDecimal> {
-    @Inject SharedPreferences prefs;
+    SharedPreferences prefs;
 
     String digitAccumulator = "";
 
 
-
+    public RpnStack(Context context) {
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    }
 
     public String getDigitAccumulator() {
         return digitAccumulator;
@@ -84,3 +84,5 @@ public class RpnStack extends Stack<BigDecimal> {
 
 
 }
+
+

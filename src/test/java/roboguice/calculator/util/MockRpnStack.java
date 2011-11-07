@@ -1,10 +1,13 @@
 package roboguice.calculator.util;
 
+import android.content.Context;
+
 import java.math.BigDecimal;
 
 public class MockRpnStack extends RpnStack {
 
-    public MockRpnStack() {
+    public MockRpnStack(Context context) {
+        super(context);
         add( BigDecimal.valueOf(1) );
         add( BigDecimal.valueOf(2) );
         add( BigDecimal.valueOf(3) );
