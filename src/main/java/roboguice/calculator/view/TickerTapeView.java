@@ -1,5 +1,6 @@
 package roboguice.calculator.view;
 
+import roboguice.RoboGuice;
 import roboguice.calculator.util.RpnStack;
 
 import android.content.Context;
@@ -19,6 +20,7 @@ public class TickerTapeView extends TextView {
 
     public TickerTapeView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        RoboGuice.injectMembers(context, this);
     }
 
     public void setStack(RpnStack stack) {
